@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -45,9 +48,22 @@ public class ExcelUtils extends Constants{
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public String getCellValue(int rowNum, int cellNum,XSSFSheet sheet) {
 		 String cellData=null;
-		 cellData = sheet.getRow(rowNum).getCell(cellNum).getStringCellValue();
+		 try{
+			 
+			 //DataFormatter format = new DataFormatter();
+			 Cell cell = sheet.getRow(rowNum).getCell(cellNum);
+			 cell.setCellType(CellType.STRING);
+			 cellData = cell.getStringCellValue();
+		 //cellData = sheet.getRow(rowNum).getCell(cellNum).getStringCellValue();
+			// cellData = format.formatCellValue(cell);
+		 }
+		 catch(IllegalStateException e){
+			 if(e.getMessage().contains("Cannot get a STRING value from a NUMERIC cell")){
+			 }
+		 }
 		 return cellData;
 	}
 	

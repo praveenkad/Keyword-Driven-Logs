@@ -10,6 +10,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -182,15 +183,19 @@ public class UserActions extends FileUtils{
 			System.out.println("Clickable Element Name "+getProperty(webElement));
 			waitForElementToLoad(webElement);
 			if(webElement.contains("_ID")){
+				setHighlight(driver.findElement(By.id(getProperty(webElement))));
 				driver.findElement(By.id(getProperty(webElement))).click();
 			}
 			else if(webElement.contains("_Class")){
+				setHighlight(driver.findElement(By.className(getProperty(webElement))));
 				driver.findElement(By.className(getProperty(webElement))).click();
 			}
 			else if(webElement.contains("_Name")){
+				setHighlight(driver.findElement(By.name(getProperty(webElement))));
 				driver.findElement(By.name(getProperty(webElement))).click();
 			}
 			else if(webElement.contains("_Xpath")){
+				setHighlight(driver.findElement(By.xpath(getProperty(webElement))));
 			driver.findElement(By.xpath(getProperty(webElement))).click();
 			}
 		} catch (StaleElementReferenceException e) {
@@ -220,16 +225,21 @@ public class UserActions extends FileUtils{
 		 System.out.println("clearAndType testData "+testData);
 		 waitForElementToLoad(webElement);
 		  try{
+			  
 		  if(webElement.contains("_ID")){
+			  setHighlight(driver.findElement(By.id(getProperty(webElement))));
 				driver.findElement(By.id(getProperty(webElement))).sendKeys(testData);
 			}
 			else if(webElement.contains("_Class")){
+				setHighlight(driver.findElement(By.className(getProperty(webElement))));
 				driver.findElement(By.className(getProperty(webElement))).sendKeys(testData);
 			}
 			else if(webElement.contains("_Name")){
+				setHighlight(driver.findElement(By.name(getProperty(webElement))));
 				driver.findElement(By.name(getProperty(webElement))).sendKeys(testData);
 			}
 			else if(webElement.contains("_Xpath")){
+				setHighlight(driver.findElement(By.xpath(getProperty(webElement))));
 			driver.findElement(By.xpath(getProperty(webElement))).sendKeys(testData);
 			}
 		  }
@@ -264,6 +274,25 @@ public class UserActions extends FileUtils{
 		System.out.println("######### switchToDefaultFrame #########");
 		 System.out.println("switchToDefaultFrame testData "+testData);
 		driver.switchTo().defaultContent();
+	}
+	
+	public void setHighlight(WebElement element) {
+		try {
+			if (true) {
+				String attributevalue = "border:3px solid Crimson;";
+				JavascriptExecutor executor = (JavascriptExecutor) driver;
+				executor.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, attributevalue);
+				//sleep(1 / 2);
+				// String getattrib = element.getAttribute("style");
+				// try { Thread.sleep(100); } catch (InterruptedException e) { }
+				// executor.executeScript(
+				// "arguments[0].setAttribute('style', arguments[1]);", element,
+				// getattrib);
+
+			}
+		} catch (Exception e) {
+			log.info("- Element could not be highlighted");
+		}
 	}
 	
 	/*
