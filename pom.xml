@@ -58,7 +58,7 @@
 						<configuration>
 							<testFailureIgnore>true</testFailureIgnore>
 							<includes>
-								<include>actions.Testng.class</include>
+								<include>testsuite.TestExecutor.class</include>
 							</includes>
 						</configuration>
 					</execution>
@@ -66,7 +66,7 @@
 
 			</plugin>
 
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.6.0</version>
@@ -84,7 +84,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 
